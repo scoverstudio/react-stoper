@@ -7,12 +7,12 @@ const TimerContainer = () => {
   const [time, setTime] = useState(0)
   const [timer, setTimer] = useState(null)
 
-  const stopTimer = () => {
+  const clearTimerInterval = () => {
     if(timer) clearInterval(timer);
   };
 
   const start = () => {
-    stopTimer();
+    clearTimerInterval();
     setTimer(
       setInterval(() => {
         setTime(time => time + 1);
@@ -21,13 +21,13 @@ const TimerContainer = () => {
   };
 
   const resetTimer = () => {
-    setTime(time => 0)
-    stopTimer();
+    setTime(0)
+    clearTimerInterval();
   };
 
   useEffect(() => {
     return () => {
-      stopTimer();
+      clearTimerInterval();
     };
   }, []);
 
@@ -36,7 +36,7 @@ const TimerContainer = () => {
     <div className={styles.timer}>
       <Timer time={time}/>
       <Button onClick={start}>START</Button>
-      <Button onClick={stopTimer}>STOP</Button>
+      <Button onClick={clearTimerInterval}>STOP</Button>
       <Button onClick={resetTimer}>RESET</Button>
     </div>
   );
